@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fcfcf8" />
+    <title>Clearcut — Background remover</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header wrap">
+      <a class="brand" href="#" aria-label="Clearcut home">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span>clearcut</span>
+      </a>
+      <div class="header-status"><span class="status-dot"></span><span>All processing stays on your device</span></div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero" aria-labelledby="headline">
+        <p class="eyebrow">A cleaner kind of cutout</p>
+        <h1 id="headline">Make the background<br /><em>disappear.</em></h1>
+        <p class="intro">Drop in an image, get a clean transparent cutout. No accounts, no uploads, no fuss.</p>
+      </section>
+
+      <section class="workspace" id="workspace">
+        <div class="upload-view" id="uploadView">
+          <label class="drop-zone" id="dropZone" for="fileInput">
+            <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+            <div class="upload-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none"><path d="M24 31V10m0 0-8 8m8-8 8 8M10 29v8a3 3 0 0 0 3 3h22a3 3 0 0 0 3-3v-8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="drop-copy"><strong>Drop your image here</strong><span>or <b>browse files</b> from your device</span></div>
+            <div class="paste-hint"><kbd>⌘</kbd><span>+</span><kbd>V</kbd> paste an image</div>
+            <div class="file-types"><span>PNG</span><span>JPG</span><span>WEBP</span></div>
+          </label>
+          <p class="upload-note"><svg viewBox="0 0 20 20" fill="none"><path d="M10 5.5v4M10 13.5h.01M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Up to 12 MB · Your image never leaves this browser</p>
+        </div>
+
+        <div class="editor-view hidden" id="editorView">
+          <div class="editor-topbar">
+            <div class="file-meta"><div class="file-thumb"><img id="thumb" alt="" /></div><div><strong id="fileName">image.png</strong><span id="fileDetails">—</span></div></div>
+            <button class="text-button" id="newImage"><span>+</span> New image</button>
+          </div>
+          <div class="compare-area" id="compareArea">
+            <div class="preview before"><span class="preview-label">Original</span><img id="beforeImage" alt="Original image" /></div>
+            <div class="preview after checkerboard"><span class="preview-label">Transparent</span><canvas id="resultCanvas" aria-label="Background removed result"></canvas></div>
+            <div class="comparison-divider" aria-hidden="true"><span></span></div>
+          </div>
+          <div class="editor-footer">
+            <div class="success-message"><span class="check-circle">✓</span><span><strong>Ready to save</strong><small>Transparent PNG is ready</small></span></div>
+            <div class="export-actions">
+              <button class="copy-button" id="copyButton"><svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.8"/></svg><span>Copy</span><i class="button-spinner" aria-hidden="true"></i></button>
+              <button class="download-button" id="downloadButton"><span>Download PNG</span><svg viewBox="0 0 24 24" fill="none"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><i class="button-spinner" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-strip">
+        <div><span class="feature-number">01</span><h2>Private by<br />default.</h2></div>
+        <p>Every step happens right in your browser. Your photos are yours alone.</p>
+        <div><span class="feature-number">02</span><h2>Ready in<br />seconds.</h2></div>
+        <p>Fast local processing that preserves every pixel and detail.</p>
+      </section>
+    </main>
+
+    <footer class="wrap"><span>© 2026 Clearcut</span><span>Made for clean work</span></footer>
+
+    <div class="processing-modal hidden" id="processingModal" role="status" aria-live="polite" aria-label="Removing background">
+      <div class="modal-card">
+        <div class="large-spinner"><i></i><i></i><i></i></div>
+        <p class="process-kicker">WORKING LOCALLY</p>
+        <h2 id="progressLabel">Preparing your image</h2>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="process-foot"><span id="progressPercent">0%</span><span>Stay right here</span></div>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status"><span>✓</span><p>Copied to clipboard</p></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
